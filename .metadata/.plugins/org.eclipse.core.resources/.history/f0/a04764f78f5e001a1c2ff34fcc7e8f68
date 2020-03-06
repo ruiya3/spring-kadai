@@ -1,0 +1,14 @@
+package com.example.todoapp.controller;
+
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class TodoItemForm implements Serializable{public void setTodoItems(long findByOrderByTitleAsc) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+
+}

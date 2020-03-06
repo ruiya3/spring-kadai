@@ -1,0 +1,10 @@
+package com.example.todoapp.domain.model;
+
+import lombok.Data;
+
+@Entity
+@Table
+@Data
+public class TodoItem {
+
+}

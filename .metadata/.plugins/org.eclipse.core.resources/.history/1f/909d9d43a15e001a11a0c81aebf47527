@@ -1,0 +1,53 @@
+package com.example.todoapp.controller;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.todoapp.domain.model.TodoItem;
+import com.example.todoapp.domain.repository.TodoItemRepository;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/todo")
+public class TodoController {
+	@NonNull
+	private final TodoItemRepository repository;
+	@GetMapping("/list")
+	public String  index(@ModelAttribute @Valid final TodoItemForm todoItemForm) {
+		todoItemForm.setTodoItems(this.repository.findByOrderByTitleAsc());
+		return "todo";
+	}
+	@PostMapping("/finish")
+	public String finish(@RequestParam("id") final long id) {
+		final Optional<TodoItem> item = this.repository.findById(id);
+		item.ifPresent(v -> {
+			v.setDone(true);
+			this.repository.save(v);
+		});
+		return "redirect:/todo/list";
+	}
+	@PostMapping("/create")
+	public String newItem(final TodoItem item) {
+		item.setDone(false);
+		this.repository.save(item);
+		return "redirect:/todo/list";
+	}
+
+	@PostMapping("/delete")
+	public String delete(@RequestParam("id") final long id) {
+		final java.util.Optional<TodoItem> item = this.repository.findById(id);
+		item.ifPresent(v -> {
+			this.repository.delete(v);
+		});
+		return "redirect:/todo/list";
+	}
+}

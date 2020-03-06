@@ -1,0 +1,17 @@
+package com.example.todoapp.controller;
+
+import java.io.Serializable;
+
+public class TodoItemForm implements Serializable{
+	private long todoItems;
+
+
+	public void setTodoItems(long id) {
+		this.todoItems = id;
+
+	}
+
+
+
+
+}

@@ -1,0 +1,10 @@
+package com.example.todoapp.domain.repository;
+
+@Repository
+public class TodoItemRepository  extends JpaRepository<TodoItem, String> {
+
+    Object findByOrderByTitleAsc();
+
+    Optional<TodoItem> findById(long id);
+
+}

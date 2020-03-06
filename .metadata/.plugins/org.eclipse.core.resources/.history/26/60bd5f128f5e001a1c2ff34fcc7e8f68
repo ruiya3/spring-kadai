@@ -1,0 +1,12 @@
+package com.example.todoapp.controller;
+
+import lombok.Data;
+
+@Data
+public class TodoItemForm {
+	private String title;
+
+	 public void setTodoItems(String todoTitle) {
+         this.title= todoTitle;
+	 }
+}

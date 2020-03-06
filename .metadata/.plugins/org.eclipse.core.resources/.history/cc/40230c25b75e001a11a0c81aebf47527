@@ -1,0 +1,13 @@
+package com.example.todoapp.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+​​@RequiredArgsConstructor
+​​@RequestMapping("/api")
+​​@Slf4j
+public class TodoAPIController {
+
+}

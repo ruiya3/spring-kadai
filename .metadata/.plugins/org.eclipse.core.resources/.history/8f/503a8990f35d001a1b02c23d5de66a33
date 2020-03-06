@@ -1,0 +1,12 @@
+package com.example.todoapp.domain.model;
+
+​​@Entity
+​​@Table
+​​@Data
+​​public class TodoItem {
+	​​    @Id
+	​​    @GeneratedValue
+	​​    private long id;
+	​​    private String title;
+	​​    private boolean done;
+	​​}

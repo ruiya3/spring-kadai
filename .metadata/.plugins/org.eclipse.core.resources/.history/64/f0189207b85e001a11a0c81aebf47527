@@ -1,0 +1,57 @@
+package com.example.todoapp.controller;
+
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.todoapp.domain.model.TodoItem;
+import com.example.todoapp.domain.repository.TodoItemRepository;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+@Slf4j
+​​public class TodoAPIController{
+   @NonNull
+  private final TodoItemRepository repository;
+   @GetMapping("/todo")
+   @ResponseStatus(HttpStatus.OK)
+   public List<TodoItem>  list() {
+       return repository.findByOrderByTitleAsc();
+   }
+   @PostMapping("/todo")
+   @ResponseStatus(HttpStatus.CREATED)
+   public TodoItem create(@RequestBody final TodoItem item) {
+       item.setDone(false);
+       TodoItem newItem = this.repository.save(item);
+       return newItem;
+   }
+   @PutMapping("/todo/{id}")
+   @ResponseStatus(HttpStatus.OK)
+   public void finish(@PathVariable("id") final long id) {
+       final Optional<TodoItem> item = this.repository.findById(id);
+       item.ifPresent(v -> {
+           v.setDone(true);
+           this.repository.save(v);
+      });
+       }
+   @DeleteMapping("/todo/{id}")
+   public void delete(@PathVariable("id") final long id) {
+	   final Optional<TodoItem> item = this.repository.findById(id);
+       item.ifPresent(v -> {
+           this.repository.delete(v);
+       });
+   }
+}

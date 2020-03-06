@@ -1,0 +1,9 @@
+package com.example.todoapp.controller;
+
+@RestController
+​​@RequiredArgsConstructor
+​​@RequestMapping("/api")
+​​@Slf4j
+public class TodoAPIController {
+
+}

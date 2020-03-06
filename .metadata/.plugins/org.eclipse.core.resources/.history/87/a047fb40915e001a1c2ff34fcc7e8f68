@@ -1,0 +1,18 @@
+package com.example.todoapp.controller;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.example.todoapp.domain.model.TodoItem;
+
+import lombok.Data;
+
+@Data
+public class TodoItemForm implements Serializable{
+
+	private List<TodoItem> todoItems;
+
+	public void setTodoItems(Object TodoItems) {
+		this.TodoItems = TodoItems;
+	}
+}

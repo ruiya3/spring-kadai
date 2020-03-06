@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/DataTables-1.10.16/css/jquery.dataTables.min.css}"/>
+<meta charset="UTF-8" />
+<title>TODO APP</title>
+</head>
+<body>
+	<div class="container">
+		​​
+		<h1 class="bg-secondary mt-3 py-1">TODO LIST</h1>
+
+		<div class="form-group">​​
+		<form method="post" th:action="@{/todo/create}">
+				​​ <input type="text" name="title" /> ​​ <input type="submit"
+					class="btn btn-primary" value="Create TODO" />
+		</form>
+		</div>
+		<hr />
+		​​
+		<ul class="list-group"
+			th:each="todoItem : ${todoItemForm.todoItems}">
+			<li class="list-group-item float-left">​​ <del  th:if="${todoItem.done}" th:text="${todoItem.title}"></del>
+				​​ <div class="col-md-12 align-top py-2"  th:unless="${todoItem.done}" th:text="${todoItem.title}"></div>​​
+				<form method="post" th:action="@{/todo/finish}"
+					th:object="${todoItem}" th:unless="${todoItem.done}"
+					style="display: inline;">
+					​​ <input type="hidden" name="id" th:value="*{id}" /> ​​ <input
+						class="btn btn-success col-md-2" type="submit" value="Finish" />​​
+				</form>​​
+				<form method="post" th:action="@{/todo/delete}"
+					th:object="${todoItem}" style="display: inline;">
+					​​ <input type="hidden" name="id" th:value="*{id}" /> ​​ <input
+						class="btn btn-warning col-md-2" type="submit" value="Delete" />​​
+				</form>​​
+			</li>
+		</ul>
+	</div>
+	​​
+</body>
+
+</html>

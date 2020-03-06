@@ -1,0 +1,14 @@
+package com.example.todoapp.controller;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import lombok.Data;
+
+@Data
+public class TodoItemForm {
+    @ModelAttribute
+       public TodoItemForm setTodoItems(Object object) {
+           TodoItemForm form = new TodoItemForm();
+           return form;
+   }
+}
